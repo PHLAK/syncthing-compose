@@ -2,7 +2,7 @@ version: '3'
 services:
 
   syncthing:
-    image: linuxserver/syncthing 
+    image: linuxserver/syncthing
     env_file: config/syncthing.env
     environment:
       PUID: ${HOST_USER_ID:?HOST_USER_ID is required}
