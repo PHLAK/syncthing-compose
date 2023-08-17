@@ -12,7 +12,7 @@ services:
     network_mode: host
     volumes:
       - syncthing-config:/config
-      - syncthing-data:/data
+      - ${SYNCTHING_DATA_DIR:-syncthing-data}:/data
     labels:
       com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
