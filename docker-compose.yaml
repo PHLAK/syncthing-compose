@@ -5,8 +5,6 @@ services:
     image: linuxserver/syncthing
     env_file: config/syncthing.env
     environment:
-      PUID: ${HOST_USER_ID:?HOST_USER_ID is required}
-      PGID: ${HOST_GROUP_ID:?HOST_GROUP_ID is required}
       TZ: ${TZ:-UTC}
     network_mode: host
     volumes:
