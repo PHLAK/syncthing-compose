@@ -10,6 +10,9 @@ services:
     volumes:
       - syncthing-config:/config
       - ${SYNCTHING_DATA_DIR:-syncthing-data}:/data
+    userns_mode: uid=1000,gid=1000
+    annotations:
+      run.oci.keep_original_groups: 1
     restart: unless-stopped
 
 volumes:
