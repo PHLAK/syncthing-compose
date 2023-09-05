@@ -8,8 +8,8 @@ services:
       TZ: ${TZ:-UTC}
     network_mode: host
     volumes:
-      - syncthing-config:/config
-      - ${SYNCTHING_DATA_DIR:-syncthing-data}:/data
+      - syncthing-config:/etc/syncthing
+      - ${SYNCTHING_DATA_DIR:-syncthing-data}:/vol/storage
     userns_mode: keep-id:uid=1000,gid=1000
     annotations:
       run.oci.keep_original_groups: 1
