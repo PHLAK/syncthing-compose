@@ -2,15 +2,15 @@ version: '3'
 services:
 
   syncthing:
-    image: docker.io/phlak/syncthing
+    image: docker.io/syncthing/syncthing
     env_file: config/syncthing.env
     environment:
       TZ: ${TZ:-UTC}
     network_mode: host
     volumes:
-      - syncthing-config:/etc/syncthing
-      - ${SYNCTHING_DATA_DIR:-syncthing-data}:/vol/storage
-    userns_mode: keep-id:uid=1000,gid=1000
+      - syncthing-config:/var/syncthing/config
+      - ${SYNCTHING_DATA_DIR:-syncthing-data}:/data
+    userns_mode: keep-id:uid=${PUID:-1000},gid=${PGID:-1000}
     annotations:
       run.oci.keep_original_groups: 1
     restart: unless-stopped
