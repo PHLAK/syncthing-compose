@@ -11,7 +11,7 @@ services:
       TZ: ${TZ:-UTC}
     network_mode: host
     volumes:
-      - syncthing-config:/var/syncthing/config
+      - syncthing-config:/var/syncthing
       - ${SYNCTHING_DATA_DIR:-syncthing-data}:/data
     labels:
       com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
