@@ -7,11 +7,7 @@ services:
       PUID: ${HOST_USER_ID:?HOST_USER_ID is required}
       PGID: ${HOST_GROUP_ID:?HOST_GROUP_ID is required}
       WATCHTOWER_SCOPE: ${COMPOSE_PROJECT_NAME}
-    ports:
-      - ${SYNCTHING_WEB_UI_PORT:-8384}:8384
-      - ${SYNCTHING_SYNC_PORT:-22000}:22000/tcp
-      - ${SYNCTHING_SYNC_PORT:-22000}:22000/udp
-      - ${SYNCTHING_DISCOVERY_PORT:-21027}:21027/udp
+    network_mode: host
     volumes:
       - ${SYNCTHING_CONFIG_VOLUME:-syncthing-config}:/var/syncthing
       - ${SYNCTHING_DATA_DIR}:/data
