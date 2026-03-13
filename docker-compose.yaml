@@ -3,11 +3,14 @@ services:
   syncthing:
     image: syncthing/syncthing:${SYNCTHING_VERSION:-2}
     env_file: environment.d/syncthing.env
+    network_mode: ${NETWORK_MODE:-bridge}
     environment:
-      PUID: ${HOST_USER_ID:?HOST_USER_ID is required}
-      PGID: ${HOST_GROUP_ID:?HOST_GROUP_ID is required}
-      WATCHTOWER_SCOPE: ${COMPOSE_PROJECT_NAME}
-    network_mode: host
+      STGUIADDRESS: 127.0.0.1:8384
+    ports:
+      - ${WEB_PORT:-8384}:8384
+      - ${SYNC_PORT:-22000}:22000/tcp
+      - ${SYNC_PORT:-22000}:22000/udp
+      - ${DISCOVERY_PORT:-21027}:21027/udp
     volumes:
       - ${SYNCTHING_DATA_DIR}:/data
       - ${SYNCTHING_CONFIG_VOLUME:-syncthing-config}:/var/syncthing
@@ -22,7 +25,7 @@ services:
     environment:
       WATCHTOWER_SCOPE: ${COMPOSE_PROJECT_NAME}
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
     labels:
       com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
